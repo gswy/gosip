@@ -23,10 +23,10 @@ type Header struct {
 func (h *Header) String() string {
 	result := ""
 	if h.RequestLine != nil {
-		result += fmt.Sprintf("%s SIP/2.0", h.RequestLine.String())
+		result += fmt.Sprintf("%s SIP/2.0\n", h.RequestLine.String())
 	}
 	if h.StatusLine != nil {
-		result += fmt.Sprintf("%s", h.StatusLine.String())
+		result += fmt.Sprintf("%s\n", h.StatusLine.String())
 	}
 	if h.Via != nil {
 		result += fmt.Sprintf("Via: %s\n", h.Via.String())
@@ -55,9 +55,9 @@ func (h *Header) String() string {
 	return result
 }
 
-// Parse 解析Header
-func (h *Header) Parse(data string) *Header {
-	return &Header{
+// ParseHeader 解析Header
+func ParseHeader(data string) Header {
+	return Header{
 		RequestLine:      headers.ParseRequestLine(data),
 		StatusLine:       headers.ParseStatusLine(data),
 		Via:              headers.ParseVia(data),

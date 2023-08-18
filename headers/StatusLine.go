@@ -40,16 +40,16 @@ func ParseStatusLine(data string) *StatusLine {
 }
 
 // HandleOk 处理成功
-func HandleOk() *StatusLine {
-	return &StatusLine{StatusCode: 200}
+func HandleOk() StatusLine {
+	return StatusLine{StatusCode: 200}
 }
 
 // HandleUnauthorized 未授权
-func HandleUnauthorized() *StatusLine {
-	return &StatusLine{StatusCode: 401}
+func HandleUnauthorized() StatusLine {
+	return StatusLine{StatusCode: 401}
 }
 
 // HandleTrying 特殊状态
-func HandleTrying() *StatusLine {
-	return &StatusLine{StatusCode: 100}
+func HandleTrying() StatusLine {
+	return StatusLine{StatusCode: 100}
 }

@@ -59,6 +59,10 @@ func (s *Engine) handle(addr net.Addr, bytes []byte) {
 		c(&Context{
 			conn: s.conn,
 			addr: addr,
+			Request: Request{
+				Header: ParseHeader(data),
+				Body:   ParseBody(data),
+			},
 		})
 	}()
 }
