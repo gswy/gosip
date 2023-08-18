@@ -21,8 +21,18 @@ func (a *Address) String() string {
 }
 
 // ParseAddress 解析
-func ParseAddress(data string) *Address {
-	return &Address{}
+func ParseAddress(address string) Address {
+	pattern := regexp.MustCompile("<sip:(?P<user>\\d+)@(?P<host>[^:]+):(?P<port>\\d+)>")
+	match := pattern.FindStringSubmatch(address)
+	user := match[pattern.SubexpIndex("user")]
+	host := match[pattern.SubexpIndex("host")]
+	port := match[pattern.SubexpIndex("port")]
+	portNumber, _ := strconv.Atoi(port)
+	return Address{
+		User: user,
+		Host: host,
+		Port: portNumber,
+	}
 }
 
 type RequestURI struct {

@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Via Header中Via对象
 type Via struct {
 	Transport   string
 	SentAddress string
@@ -16,6 +17,7 @@ type Via struct {
 	Received    *string
 }
 
+// String 格式化
 func (v *Via) String() string {
 	result := fmt.Sprintf("SIP/2.0/%s %s:%d", v.Transport, v.SentAddress, v.SentPort)
 	if v.RPort != nil {
@@ -30,6 +32,7 @@ func (v *Via) String() string {
 	return result
 }
 
+// ParseVia 解析
 func ParseVia(data string) *Via {
 	// 扫描via行
 	field := ScanHeaderField(data, "Via:")

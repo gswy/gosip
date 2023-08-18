@@ -2,7 +2,7 @@ package headers
 
 // Contact 对象
 type Contact struct {
-	Address *Address
+	Address Address
 }
 
 // String 格式化
