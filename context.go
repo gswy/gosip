@@ -22,10 +22,10 @@ func (r *Response) encode() {
 }
 
 type Context struct {
-	conn *net.UDPConn
-	addr net.Addr
-	Request
-	Response
+	conn     *net.UDPConn
+	addr     net.Addr
+	Request  Request
+	Response Response
 }
 
 func (c Context) RESP(status headers.StatusLine, response Response) {

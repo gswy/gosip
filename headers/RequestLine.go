@@ -1,6 +1,10 @@
 package headers
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+	"regexp"
+)
 
 // RequestLine 请求行
 type RequestLine struct {
@@ -14,6 +18,16 @@ func (r *RequestLine) String() string {
 }
 
 // ParseRequestLine 解析
-func ParseRequestLine(data string) *RequestLine {
-	return &RequestLine{}
+func ParseRequestLine(first string) (*RequestLine, error) {
+	pattern := regexp.MustCompile(`(?P<method>[a-z|A-Z]+)\s+`)
+	match := pattern.FindStringSubmatch(first)
+	if len(match) != 2 {
+		return nil, errors.New("非请求头解析")
+	}
+	method := match[pattern.SubexpIndex("method")]
+	requestURI := ParseRequestURI(first)
+	return &RequestLine{
+		Method:     method,
+		RequestUri: *requestURI,
+	}, nil
 }

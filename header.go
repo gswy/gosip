@@ -57,9 +57,22 @@ func (h *Header) String() string {
 
 // ParseHeader 解析Header
 func ParseHeader(data string) Header {
+	// 头部比较特殊，需要单独解析
+	var requestLine *headers.RequestLine
+	var statusLine *headers.StatusLine
+	// 查找协议第一行
+	first := headers.ScanHeaderFirst(data)
+	// 判断是否为请求头
+	if parse, err := headers.ParseRequestLine(*first); err == nil {
+		requestLine = parse
+	}
+	// 判断是否为响应头
+	if parse, err := headers.ParseStatusLine(*first); err == nil {
+		statusLine = parse
+	}
 	return Header{
-		RequestLine:      headers.ParseRequestLine(data),
-		StatusLine:       headers.ParseStatusLine(data),
+		RequestLine:      requestLine,
+		StatusLine:       statusLine,
 		Via:              headers.ParseVia(data),
 		From:             headers.ParseFrom(data),
 		To:               headers.ParseTo(data),

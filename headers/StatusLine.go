@@ -1,7 +1,10 @@
 package headers
 
 import (
+	"errors"
 	"fmt"
+	"regexp"
+	"strconv"
 )
 
 const (
@@ -35,8 +38,17 @@ func StatusText(status int) string {
 	}
 }
 
-func ParseStatusLine(data string) *StatusLine {
-	return &StatusLine{}
+func ParseStatusLine(first string) (*StatusLine, error) {
+	pattern := regexp.MustCompile(`SIP/2\.0\s+(?P<status>\d+)`)
+	match := pattern.FindStringSubmatch(first)
+	if len(match) != 2 {
+		return nil, errors.New("非请求头解析")
+	}
+	status := match[pattern.SubexpIndex("status")]
+	statusCode, _ := strconv.Atoi(status)
+	return &StatusLine{
+		StatusCode: statusCode,
+	}, nil
 }
 
 // HandleOk 处理成功
