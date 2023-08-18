@@ -14,6 +14,7 @@ type Header struct {
 	Contact          *headers.Contact
 	CallID           *headers.CallID
 	CSeq             *headers.CSeq
+	Date             *headers.Date
 	Authorization    *headers.Authorization
 	WWWAuthorization *headers.WWWAuthorization
 	Expires          *headers.Expires
@@ -45,6 +46,9 @@ func (h *Header) String() string {
 	}
 	if h.CSeq != nil {
 		result += fmt.Sprintf("CSeq: %s\n", h.CSeq.String())
+	}
+	if h.Date != nil {
+		result += fmt.Sprintf("Date: %s\n", h.CSeq.String())
 	}
 	if h.Authorization != nil {
 		result += fmt.Sprintf("Authorization: %s\n", h.Authorization.String())
@@ -79,6 +83,7 @@ func ParseHeader(data string) Header {
 		Contact:          headers.ParseContact(data),
 		CallID:           headers.ParseCallID(data),
 		CSeq:             headers.ParseCSeq(data),
+		Date:             headers.ParseDate(data),
 		Authorization:    headers.ParseAuthorization(data),
 		WWWAuthorization: headers.ParseWWWAuthorization(data),
 		Expires:          headers.ParseExpires(data),

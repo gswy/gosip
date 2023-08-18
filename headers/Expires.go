@@ -2,6 +2,8 @@ package headers
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 )
 
 // Expires 过期时间
@@ -20,5 +22,10 @@ func ParseExpires(data string) *Expires {
 	if field == nil {
 		return nil
 	}
-	return &Expires{}
+	replace := strings.Replace(*field, "Expires:", "", 1)
+	space := strings.TrimSpace(replace)
+	val, _ := strconv.Atoi(space)
+	return &Expires{
+		Value: val,
+	}
 }

@@ -1,5 +1,9 @@
 package headers
 
+import (
+	"strings"
+)
+
 // CallID 对象
 type CallID struct {
 	Value string
@@ -11,10 +15,12 @@ func (c *CallID) String() string {
 }
 
 // ParseCallID 解析
-func ParseCallID(data string) *CallID {
-	field := ScanHeaderField(data, "Call-ID:")
+func ParseCallID(callId string) *CallID {
+	field := ScanHeaderField(callId, "Call-ID:")
 	if field == nil {
 		return nil
 	}
-	return &CallID{Value: ""}
+	value := strings.Replace(*field, "Call-ID:", "", 1)
+	value = strings.TrimSpace(value)
+	return &CallID{Value: value}
 }

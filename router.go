@@ -14,6 +14,11 @@ func (group *RouteGroup) Register(c callback) {
 	group.handle(RegisterMethod, c)
 }
 
+// Message 请求方法
+func (group *RouteGroup) Message(c callback) {
+	group.handle(MessageMethod, c)
+}
+
 // Invite 请求方法
 func (group *RouteGroup) Invite(c callback) {
 	group.handle(InviteMethod, c)

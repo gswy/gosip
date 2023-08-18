@@ -11,7 +11,7 @@ type Body struct {
 }
 
 // ParseBody 解析Body
-func ParseBody(data string) *Body {
+func ParseBody(data string) Body {
 	scanner := bufio.NewScanner(strings.NewReader(data))
 	result := ""
 	isBody := false
@@ -25,8 +25,17 @@ func ParseBody(data string) *Body {
 		}
 	}
 	if isBody {
-		return &Body{Value: &result}
+		return Body{Value: &result}
 	} else {
-		return nil
+		return Body{}
+	}
+}
+
+// String 解析
+func (b *Body) String() string {
+	if b.Value == nil {
+		return fmt.Sprintf("Content-Length: 0\n")
+	} else {
+		return fmt.Sprintf("Content-Length: %d\n\n%s", len(*b.Value), *b.Value)
 	}
 }
