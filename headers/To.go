@@ -9,5 +9,9 @@ func (t *To) String() string {
 }
 
 func ParseTo(data string) *To {
+	field := ScanHeaderField(data, "To:")
+	if field == nil {
+		return nil
+	}
 	return &To{}
 }

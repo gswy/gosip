@@ -8,6 +8,10 @@ func (a *Authorization) String() string {
 }
 
 func ParseAuthorization(data string) *Authorization {
+	field := ScanHeaderField(data, "Authorization:")
+	if field == nil {
+		return nil
+	}
 	return &Authorization{}
 }
 
@@ -19,5 +23,9 @@ func (w *WWWAuthorization) String() string {
 }
 
 func ParseWWWAuthorization(data string) *WWWAuthorization {
+	field := ScanHeaderField(data, "WWW-Authorization:")
+	if field == nil {
+		return nil
+	}
 	return &WWWAuthorization{}
 }

@@ -12,5 +12,9 @@ func (c *CSeq) String() string {
 }
 
 func ParseCSeq(data string) *CSeq {
+	field := ScanHeaderField(data, "CSeq:")
+	if field == nil {
+		return nil
+	}
 	return &CSeq{}
 }

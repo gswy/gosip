@@ -16,5 +16,9 @@ func (f *From) String() string {
 }
 
 func ParseFrom(data string) *From {
+	field := ScanHeaderField(data, "From:")
+	if field == nil {
+		return nil
+	}
 	return &From{}
 }

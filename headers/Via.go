@@ -26,5 +26,9 @@ func (v *Via) String() string {
 }
 
 func ParseVia(data string) *Via {
+	field := ScanHeaderField(data, "Via:")
+	if field == nil {
+		return nil
+	}
 	return &Via{}
 }

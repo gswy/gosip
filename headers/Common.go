@@ -6,16 +6,19 @@ import (
 	"strings"
 )
 
+// Address URL地址对象
 type Address struct {
 	User *string
 	Host *string
 	Port *int
 }
 
+// String 格式化
 func (a *Address) String() string {
 	return fmt.Sprintf("<sip:%s@%s:%d>", *a.User, *a.Host, *a.Port)
 }
 
+// ParseAddress 解析
 func ParseAddress(data string) *Address {
 	return &Address{}
 }
@@ -26,10 +29,12 @@ type RequestURI struct {
 	Port *int
 }
 
+// String 格式化
 func (r *RequestURI) String() string {
 	return fmt.Sprintf("sip:%s@%s:%d", *r.User, *r.Host, *r.Port)
 }
 
+// ParseRequestURI 解析
 func ParseRequestURI() *RequestURI {
 	return &RequestURI{}
 }
