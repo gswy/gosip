@@ -7,3 +7,7 @@ type CallID struct {
 func (c *CallID) String() string {
 	return c.Value
 }
+
+func ParseCallID(data string) *CallID {
+	return &CallID{Value: ""}
+}

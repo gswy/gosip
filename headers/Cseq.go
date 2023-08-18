@@ -10,3 +10,7 @@ type CSeq struct {
 func (c *CSeq) String() string {
 	return fmt.Sprintf("%d %s", c.Sequence, c.Method)
 }
+
+func ParseCSeq(data string) *CSeq {
+	return &CSeq{}
+}

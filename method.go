@@ -6,6 +6,6 @@ const (
 	InviteMethod   = "INVITE"
 	AckMethod      = "ACK"
 	CancelMethod   = "CANCEL"
-	OptionsMethod  = "OptionsMethod"
+	OptionsMethod  = "OPTIONS"
 	ByeMethod      = "BYE"
 )

@@ -24,3 +24,7 @@ func (v *Via) String() string {
 	}
 	return result
 }
+
+func ParseVia(data string) *Via {
+	return &Via{}
+}

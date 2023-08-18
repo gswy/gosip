@@ -14,3 +14,7 @@ func (f *From) String() string {
 	}
 	return result
 }
+
+func ParseFrom(data string) *From {
+	return &From{}
+}

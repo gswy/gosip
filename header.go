@@ -7,6 +7,7 @@ import (
 
 type Header struct {
 	RequestLine      *headers.RequestLine
+	StatusLine       *headers.StatusLine
 	Via              *headers.Via
 	From             *headers.From
 	To               *headers.To
@@ -15,10 +16,18 @@ type Header struct {
 	CSeq             *headers.CSeq
 	Authorization    *headers.Authorization
 	WWWAuthorization *headers.WWWAuthorization
+	Expires          *headers.Expires
 }
 
+// String
 func (h *Header) String() string {
 	result := ""
+	if h.RequestLine != nil {
+		result += fmt.Sprintf("%s SIP/2.0", h.RequestLine.String())
+	}
+	if h.StatusLine != nil {
+		result += fmt.Sprintf("%s", h.StatusLine.String())
+	}
 	if h.Via != nil {
 		result += fmt.Sprintf("Via: %s\n", h.Via.String())
 	}
@@ -44,4 +53,21 @@ func (h *Header) String() string {
 		result += fmt.Sprintf("WWW-Authorization: %s\n", h.WWWAuthorization.String())
 	}
 	return result
+}
+
+// Parse 解析Header
+func (h *Header) Parse(data string) *Header {
+	return &Header{
+		RequestLine:      headers.ParseRequestLine(data),
+		StatusLine:       headers.ParseStatusLine(data),
+		Via:              headers.ParseVia(data),
+		From:             headers.ParseFrom(data),
+		To:               headers.ParseTo(data),
+		Contact:          headers.ParseContact(data),
+		CallID:           headers.ParseCallID(data),
+		CSeq:             headers.ParseCSeq(data),
+		Authorization:    headers.ParseAuthorization(data),
+		WWWAuthorization: headers.ParseWWWAuthorization(data),
+		Expires:          headers.ParseExpires(data),
+	}
 }
